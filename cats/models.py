@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class Brend(models.Model):
 	# бренд товара
@@ -52,6 +53,9 @@ class Product(models.Model):
 
 	def __str__(self):
 		return self.tagtitle
+
+	def get_absolute_url(self):
+		return reverse('product_detail', kwargs={'slug': self.url})
 
 	class Meta:
 		verbose_name = 'Продукт'

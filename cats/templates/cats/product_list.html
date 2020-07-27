@@ -12,7 +12,7 @@
     <link href="//fonts.googleapis.com/css?family=Lato:100,100i,300,300i,400,400i,700" rel="stylesheet">
     <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900" rel="stylesheet">
 
-    <title>{% block title %}ZooStore{% endblock %}</title>
+    <title>{% block title %}Кошки: Питание{% endblock %}</title>
 
     <link rel="icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
@@ -80,13 +80,52 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-sm-3">
-
+                <form class="d-flex mt-3" action="#" method="post">
+                    <input class="form-control" type="search" placeholder="Введите название..." required="">
+                    <button class="btn btn-outline-dark ml-1">Поиск</button>
+                </form>
+                <div class="left-side mt-4">
+                    <h3 class="head"> Бренд </h3>
+                    <ul class="box-list">
+                        <li>
+                            <input type="checkbox" class="checked">
+                            <span> Kitekat </span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="left-side">
+                    <h3 class="head"> Наименование </h3>
+                    <ul class="box-list">
+                        <li>
+                            <input type="checkbox" class="checked">
+                            <span> Сухой корм </span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         <!-- конец левой панели -->
               <!-- правая панель -->
             <div class="col-sm-9">
                 <div class="row">
-                  
+                    {% for product in product_list %}
+                    <div class="card mt-3 ml-4 text-center" style="width: 18rem;">
+                      <a href="{{ product.get_absolute_url }}" ><img class="card-img-top mx-auto d-block" src="{{ product.poster.url }}" alt="food" style="width:150px;"></a>
+                      <div class="card-body">
+                        <a class="card-text">{% for titles in product.title.all %}
+                                             {{ titles.name }}
+                                             {% endfor %}</a> <a>{% for addcategorie in product.addcategories.all %}
+                                             {{ addcategorie.name }}
+                                             {% endfor %}</a><br>
+                        <a class="card-text">{{ product.tagtitle }}</a>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                          <div class="btn-group">
+                            <button type="button" class="btn btn-sm btn-primary">В Корзину</button>
+                          </div>
+                          <small class="text-muted">{{ product.price }} тенге</small>
+                        </div>
+                      </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
              <!-- конец правой панели -->
